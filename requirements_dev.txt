@@ -1,0 +1,8 @@
+-r requirements.txt
+pip-tools
+ipdb
+ipython
+isort
+flake8
+black
+coverage

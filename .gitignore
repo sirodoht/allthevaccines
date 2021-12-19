@@ -1,0 +1,14 @@
+# env
+*.pyc
+.direnv/
+.pyenv/
+
+# test
+.coverage
+htmlcov/
+
+# database
+db.sqlite3
+
+# static
+static/
