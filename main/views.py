@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+
+from main import models
 
 
-def index(request):
-    return render(request, "main/index.html")
+class IndexView(ListView):
+    model = models.Vaccine
+    template_name = "main/index.html"

@@ -3,4 +3,22 @@
 {% load static %}
 
 {% block content %}
+<h1>allthevaccines.org</h1>
+<hr>
+<table>
+    <thead>
+        <th scope="col">Trade Name</th>
+        <th scope="col">Manufacturer</th>
+        <th scope="col">Disease</th>
+    </thead>
+    <tbody>
+        {% for vac in vaccine_list %}
+        <tr>
+            <td>{{ vac.trade_name }}</td>
+            <td>{{ vac.manufacturer }}</td>
+            <td><a href="{{ vac.disease_set.first.wikipedia_url }}">{{ vac.disease_set.first }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
