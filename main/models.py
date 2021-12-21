@@ -12,6 +12,14 @@ class Vaccine(models.Model):
     def wikipedia_url_fancy(self):
         return "wikipedia:" + self.wikipedia_url[30:]
 
+    @property
+    def info_urls_html(self):
+        if not self.info_urls:
+            return "<em>no links</em>"
+        url_list = self.info_urls.split("\n")
+        # join all formatted links with <br> in between
+        return "<br>".join(f'<a href="{url}">{url}</a>' for url in url_list)
+
     class Meta:
         ordering = ["trade_name"]
 
