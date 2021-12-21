@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+<h1><span class="muted">Vaccine:</span> {{ vaccine.trade_name }}</h1>
+
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<a href="{% url 'admin:main_vaccine_change' vaccine.id %}">Edit in admin</a>
+{% endif %}
+
+<h2>Manufacturer</h2>
+<p>
+    {{ vaccine.manufacturer }}
+</p>
+
+<h2>Information links</h2>
+<p>
+    {{ vaccine.info_urls_html|safe }}
+</p>
+
+<h2>Protects against</h2>
+<table>
+    <thead>
+        <th scope="col">Name</th>
+        <th scope="col">Wikipedia</th>
+    </thead>
+    <tbody>
+        {% for disease in disease_list %}
+        <tr>
+            <td>
+                <a href="{% url 'disease_detail' disease.slug %}">
+                    {{ disease.name }}
+                </a>
+            </td>
+            <td>
+                <a href="{{ disease.wikipedia_url }}">
+                    {{ disease.wikipedia_url_fancy }}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

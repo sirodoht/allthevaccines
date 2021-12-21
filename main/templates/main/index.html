@@ -3,20 +3,33 @@
 {% load static %}
 
 {% block content %}
-<h1>allthevaccines.org</h1>
-<hr>
+<h1><span class="muted">Vaccine: List</span></h1>
 <table>
     <thead>
         <th scope="col">Trade Name</th>
         <th scope="col">Manufacturer</th>
         <th scope="col">Disease</th>
+        {% if request.user.is_authenticated and request.user.is_superuser %}
+        <th scope="col">Admin</th>
+        {% endif %}
     </thead>
     <tbody>
-        {% for vac in vaccine_list %}
+        {% for vaccine in vaccine_list %}
         <tr>
-            <td>{{ vac.trade_name }}</td>
-            <td>{{ vac.manufacturer }}</td>
-            <td><a href="{{ vac.disease_set.first.wikipedia_url }}">{{ vac.disease_set.first }}</a></td>
+            <td>
+                <a href="{% url 'vaccine_detail' vaccine.slug %}">{{ vaccine.trade_name }}</a>
+            </td>
+            <td>{{ vaccine.manufacturer }}</td>
+            <td>
+                {% for disease in vaccine.disease_set.all %}
+                <a href="{% url 'disease_detail' disease.slug %}">
+                    {{ disease.name }}{% if not forloop.last %},{% endif %}
+                </a>
+                {% endfor %}
+            </td>
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            <td><a href="{% url 'admin:main_vaccine_change' vaccine.id %}">Edit</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

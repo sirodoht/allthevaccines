@@ -1,0 +1,21 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+<h1><span class="muted">Disease:</span> {{ disease.name }}</h1>
+<table>
+    <thead>
+        <th scope="col">Trade Name</th>
+        <th scope="col">Manufacturer</th>
+    </thead>
+    <tbody>
+        {% for vac in vaccine_list %}
+        <tr>
+            <td>{{ vac.trade_name }}</td>
+            <td>{{ vac.manufacturer }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
