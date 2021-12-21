@@ -11,4 +11,4 @@ htmlcov/
 db.sqlite3
 
 # static
-static/
+/static/
