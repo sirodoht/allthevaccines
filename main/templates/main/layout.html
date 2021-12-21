@@ -15,7 +15,7 @@
         <meta name="twitter:card" content="summary">
         <meta property="og:url" content="https://allthevaccines.org/">
         <meta property="og:title" content="allthevaccines.org">
-        <meta property="og:description" content="Humanity Vaccine Tracker">
+        <meta property="og:description" content="Human Vaccine Tracker">
         {% endblock %}
     </head>
     <body>
@@ -35,6 +35,12 @@
             {% endif %}
         </aside>
         {% endif %}
+
+        <nav>
+            <a href="{% url 'index' %}" class="title">allthevaccines.org</a>
+            — <a href="{% url 'index' %}">vaccine list</a>
+            | <a href="{% url 'disease_list' %}">disease list</a>
+        </nav>
 
         {% block content %}
         {% endblock %}
