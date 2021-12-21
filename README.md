@@ -1,10 +1,11 @@
 # allthevaccines
 
-Humanity vaccine tracker.
+Human vaccine tracker.
 
 ## Contributing
 
-Feel free to send an email patch to
+Feel free to open a PR on [GitHub](https://github.com/sirodoht/allthevaccines)
+or send an email patch to
 [~sirodoht/public-inbox@lists.sr.ht](mailto:~sirodoht/public-inbox@lists.sr.ht).
 
 On how to contribute using email patches see
