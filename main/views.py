@@ -7,6 +7,20 @@ class Index(ListView):
     model = models.Vaccine
     template_name = "main/index.html"
 
+
+class DiseaseDetail(DetailView):
+    model = models.Disease
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["vaccine_list"] = models.Vaccine.objects.filter(disease=self.object)
+        return context
+
+
+class DiseaseList(ListView):
+    model = models.Disease
+
+
 class VaccineDetail(DetailView):
     model = models.Vaccine
 
