@@ -7,6 +7,7 @@ class Vaccine(models.Model):
     manufacturer = models.CharField(max_length=100)
     info_urls = models.TextField(null=True, blank=True)
     vaccine_class = models.CharField(max_length=100, null=True, blank=True)
+    vaccine_type = models.CharField(max_length=100, null=True, blank=True)
 
     @property
     def wikipedia_url_fancy(self):
