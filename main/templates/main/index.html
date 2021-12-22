@@ -21,6 +21,7 @@
             </td>
             <td>{{ vaccine.manufacturer }}</td>
             <td>
+                ({{ vaccine.disease_set.count }})
                 {% for disease in vaccine.disease_set.all %}
                 <a href="{% url 'disease_detail' disease.slug %}">
                     {{ disease.name }}{% if not forloop.last %},{% endif %}
