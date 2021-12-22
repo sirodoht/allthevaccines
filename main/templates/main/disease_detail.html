@@ -10,10 +10,12 @@
         <th scope="col">Manufacturer</th>
     </thead>
     <tbody>
-        {% for vac in vaccine_list %}
+        {% for vaccine in vaccine_list %}
         <tr>
-            <td>{{ vac.trade_name }}</td>
-            <td>{{ vac.manufacturer }}</td>
+            <td>
+                <a href="{% url 'vaccine_detail' vaccine.slug %}">{{ vaccine.trade_name }}</a>
+            </td>
+            <td>{{ vaccine.manufacturer }}</td>
         </tr>
         {% endfor %}
     </tbody>
