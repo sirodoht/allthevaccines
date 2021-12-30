@@ -5,6 +5,10 @@
 {% block content %}
 <h1><span class="muted">Disease:</span> {{ disease.name }}</h1>
 
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<a href="{% url 'admin:main_disease_change' disease.id %}">Edit in admin</a>
+{% endif %}
+
 <h2>Wikipedia</h2>
 <p>
     <a href="{{ disease.wikipedia_url }}">
