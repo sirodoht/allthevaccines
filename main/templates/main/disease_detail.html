@@ -4,6 +4,12 @@
 
 {% block content %}
 <h1><span class="muted">Disease:</span> {{ disease.name }}</h1>
+
+<h2>Vaccines Count</h2>
+<p>
+    {{ vaccine_list.count }}
+</p>
+
 <table>
     <thead>
         <th scope="col">Trade Name</th>

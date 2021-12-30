@@ -7,6 +7,7 @@
 <table>
     <thead>
         <th scope="col">Name</th>
+        <th scope="col">Vaccines Count</th>
         <th scope="col">Wikipedia</th>
         {% if request.user.is_authenticated and request.user.is_superuser %}
         <th scope="col">Admin</th>
@@ -20,6 +21,7 @@
                     {{ disease.name }}
                 </a>
             </td>
+            <td>{{ disease.vaccines.count }}</td>
             <td>
                 <a href="disease.wikipedia_url">
                     {{ disease.wikipedia_url_fancy }}
