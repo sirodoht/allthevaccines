@@ -41,6 +41,9 @@
             — <a href="{% url 'index' %}">vaccine list</a>
             | <a href="{% url 'disease_list' %}">disease list</a>
             | <a href="{% url 'about' %}">about</a>
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            | <a href="{% url 'admin:index' %}">admin</a>
+            {% endif %}
         </nav>
 
         {% block content %}
