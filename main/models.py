@@ -36,7 +36,7 @@ class Disease(models.Model):
 
     @property
     def wikipedia_url_fancy(self):
-        return "wikipedia:" + self.wikipedia_url[30:]
+        return "wikipedia:" + self.wikipedia_url[30:].replace("_", " ")
 
     class Meta:
         ordering = ["name"]
