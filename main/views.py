@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
 from main import models
@@ -28,3 +29,7 @@ class VaccineDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["disease_list"] = models.Disease.objects.filter(vaccines=self.object)
         return context
+
+
+def about(request):
+    return render(request, "main/about.html")

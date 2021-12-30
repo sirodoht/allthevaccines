@@ -223,6 +223,10 @@ nav {
     padding-bottom: 8px;
 }
 
+main {
+    max-width: 600px;
+}
+
 table {
     border-collapse: collapse;
 }
