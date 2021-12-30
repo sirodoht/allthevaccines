@@ -5,6 +5,13 @@
 {% block content %}
 <h1><span class="muted">Disease:</span> {{ disease.name }}</h1>
 
+<h2>Wikipedia</h2>
+<p>
+    <a href="{{ disease.wikipedia_url }}">
+        {{ disease.wikipedia_url }}
+    </a>
+</p>
+
 <h2>Vaccines Count</h2>
 <p>
     {{ vaccine_list.count }}
