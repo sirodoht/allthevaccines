@@ -9,7 +9,7 @@
 
         <link rel="stylesheet" href="{% static 'style.css' %}">
 
-        <title>allthevaccines.org</title>
+        <title>{% block title %}allthevaccines.org{% endblock %}</title>
 
         {% block meta %}
         <meta name="twitter:card" content="summary">
