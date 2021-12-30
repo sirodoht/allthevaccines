@@ -258,6 +258,12 @@ td:not(:last-child) {
     color: inherit;
     text-decoration: none;
 }
+@media(max-width: 460px) {
+    .title {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
 
 .title:hover {
     text-decoration: underline;
