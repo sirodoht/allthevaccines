@@ -23,6 +23,57 @@ The Django project is `allthevaccines`. There is one Django app, `main`, with
 all business logic. Application CLI commands are generally divided into two
 categories, those under `python manage.py` and those under `make`.
 
+```
+├── Makefile
+├── allthevaccines/  # django project directory
+│   ├── asgi.py
+│   ├── settings.py  # django settings
+│   ├── urls.py  # root urls module
+│   └── wsgi.py
+├── allthevaccines.org.conf  # nginx configuration
+├── default.nix  # nix environment
+├── deploy.sh  # deployment script
+├── emperor.ini  # uwsgi emperor config
+├── emperor.uwsgi.service  # uwsgi systemd config
+├── main/  # django app directory
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations/
+│   ├── models.py
+│   ├── static/
+│   │   └── style.css  # single CSS stylesheet
+│   ├── templates/  # django templates
+│   │   └── main/
+│   │       ├── about.html  # static about page
+│   │       ├── disease_detail.html
+│   │       ├── disease_list.html
+│   │       ├── index.html
+│   │       ├── layout.html  # all templates inherit from this one
+│   │       └── vaccine_detail.html
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── manage.py
+├── requirements.in  # manually edited requirements file
+├── requirements.txt  # pip-compile generated file
+├── requirements_dev.txt  # manually edited dev requiremenets
+├── static/  # generated static directory
+└── uwsgi.ini  # uwsgi vassal configuration
+```
+
+## Environment
+
+This project uses [Nix](https://nixos.org/guides/install-nix.html) and
+[direnv](https://direnv.net/) to configure its environment.
+
+Alternatively, one can just use a [venv](https://docs.python.org/3/library/venv.html):
+
+```sh
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements_dev.txt
+```
+
 ### Database
 
 This project uses SQLite. To create the database and schema and apply
