@@ -27,6 +27,9 @@
     <thead>
         <th scope="col">Trade Name</th>
         <th scope="col">Manufacturer</th>
+        {% if request.user.is_authenticated and request.user.is_superuser %}
+        <th scope="col">Admin</th>
+        {% endif %}
     </thead>
     <tbody>
         {% for vaccine in vaccine_list %}
@@ -35,6 +38,9 @@
                 <a href="{% url 'vaccine_detail' vaccine.slug %}">{{ vaccine.trade_name }}</a>
             </td>
             <td>{{ vaccine.manufacturer }}</td>
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            <td><a href="{% url 'admin:main_vaccine_change' vaccine.id %}">Edit</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

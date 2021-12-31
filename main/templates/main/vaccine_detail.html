@@ -26,6 +26,9 @@
     <thead>
         <th scope="col">Name</th>
         <th scope="col">Wikipedia</th>
+        {% if request.user.is_authenticated and request.user.is_superuser %}
+        <th scope="col">Admin</th>
+        {% endif %}
     </thead>
     <tbody>
         {% for disease in disease_list %}
@@ -40,6 +43,9 @@
                     {{ disease.wikipedia_url_fancy }}
                 </a>
             </td>
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            <td><a href="{% url 'admin:main_disease_change' disease.id %}">Edit</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
