@@ -21,7 +21,7 @@
     </head>
     <body>
         {% if messages %}
-        <aside>
+        <aside class="alert">
             {% for message in messages %}
             <div {% if message.tags %}class="alert-{{ message.tags }}"{% endif %}>
                 {{ message|safe }}

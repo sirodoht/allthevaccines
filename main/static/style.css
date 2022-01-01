@@ -252,6 +252,12 @@ td:not(:last-child) {
     border-right: 2px solid #fff;
 }
 
+
+.alert {
+    background: antiquewhite;
+    padding: 4px 8px;
+}
+
 .title {
     font-family: monospace;
     font-size: inherit;
