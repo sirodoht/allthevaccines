@@ -11,6 +11,7 @@ class VaccineAdmin(admin.ModelAdmin):
         "manufacturer",
     )
     list_display_links = ("id", "slug")
+    list_per_page = 200
 
     ordering = ["-id"]
 
