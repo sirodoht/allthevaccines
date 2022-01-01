@@ -6,6 +6,13 @@
 
 {% block content %}
 <h1><span class="muted">Disease: List</span></h1>
+
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<p>
+    <a href="{% url 'admin:main_disease_add' %}">Add new disease</a>
+</p>
+{% endif %}
+
 <table>
     <thead>
         <th scope="col">Name</th>
