@@ -61,7 +61,7 @@ categories, those under `python manage.py` and those under `make`.
 └── uwsgi.ini  # uwsgi vassal configuration
 ```
 
-## Environment
+### Environment
 
 This project uses [Nix](https://nixos.org/guides/install-nix.html) and
 [direnv](https://direnv.net/) to configure its environment.
@@ -73,6 +73,10 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements_dev.txt
 ```
+
+[direnv](https://direnv.net/) operates with a file named `.envrc` in the root
+directory of the project. This file is git-ignored and an example of how it
+is structured can be found in [`.envrc.example`](.envrc.example).
 
 ### Database
 
