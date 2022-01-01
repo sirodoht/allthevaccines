@@ -34,6 +34,10 @@ ALLOWED_HOSTS = [
 
 ADMINS = [("Theodore", "zf@sirodoht.com")]
 
+CANONICAL_HOST = "allthevaccines.org"
+if DEBUG:
+    CANONICAL_HOST = "localhost:8000"
+
 # Application definition
 
 INSTALLED_APPS = [
