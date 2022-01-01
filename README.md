@@ -78,6 +78,9 @@ pip install -r requirements_dev.txt
 directory of the project. This file is git-ignored and an example of how it
 is structured can be found in [`.envrc.example`](.envrc.example).
 
+One needs to either `cp .envrc.example .envrc` if using direnv, or export the
+environment variables in some other way.
+
 ### Database
 
 This project uses SQLite. To create the database and schema and apply
