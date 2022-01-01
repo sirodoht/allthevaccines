@@ -31,3 +31,18 @@ class DiseaseAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Disease, DiseaseAdmin)
+
+
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "email",
+        "created_at",
+        "unsubscribe_key",
+    )
+    list_display_links = ("id", "email")
+
+    ordering = ["-id"]
+
+
+admin.site.register(models.Subscription, SubscriptionAdmin)
