@@ -252,6 +252,16 @@ td:not(:last-child) {
     border-right: 2px solid #fff;
 }
 
+input[type="submit"] {
+    background: var(--yellow-color);
+    border: 2px solid var(--yellow-color);
+    padding: 2px 8px;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+    border: 2px solid var(--muted-color);
+}
 
 .alert {
     background: antiquewhite;

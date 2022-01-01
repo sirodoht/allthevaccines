@@ -58,5 +58,15 @@
         <a href="https://git.sr.ht/~sirodoht/allthevaccines">sr.ht</a>
         and <a href="https://github.com/sirodoht/allthevaccines">GitHub</a>.
     </p>
+
+    <section>
+        <h2>Get updates</h2>
+        <form method="post" action="{% url 'subscribe' %}">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            {% csrf_token %}
+            <input type="submit" value="save">
+        </form>
+    </section>
 </main>
 {% endblock %}
