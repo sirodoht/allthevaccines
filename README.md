@@ -90,6 +90,25 @@ migrations, run:
 python manage.py migrate
 ```
 
+### Data
+
+Production vaccine and disease data are serialised and committed to the
+repository, file name is [`vaccine-disease-data.json`](vaccine-disease-data.json)).
+
+To load all vaccine and disease data, run:
+
+```sh
+python manage.py loaddata --app main vaccine-disease-data.json
+```
+
+Note: The above command needs to run after the migration command.
+
+To dump/serialise all vaccine and disease data, run:
+
+```sh
+python manage.py dumpdata main.Vaccine main.Disease > vaccine-disease-data.json
+```
+
 ### Serve
 
 To run the Django development server:
