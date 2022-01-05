@@ -1,7 +1,9 @@
-# env
+# python
 *.pyc
+.envrc
 .direnv/
 .pyenv/
+venv/
 
 # test
 .coverage
@@ -12,4 +14,3 @@ db.sqlite3
 
 # static
 /static/
-.envrc
