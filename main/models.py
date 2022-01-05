@@ -1,5 +1,6 @@
 import uuid
 
+import markdown
 from django.db import models
 
 
@@ -35,10 +36,24 @@ class Disease(models.Model):
     slug = models.CharField(max_length=100, unique=True)
     wikipedia_url = models.CharField(max_length=100)
     vaccines = models.ManyToManyField(Vaccine, blank=True)
+    notes = models.TextField(null=True, blank=True)
 
     @property
     def wikipedia_url_fancy(self):
         return "wikipedia:" + self.wikipedia_url[30:].replace("_", " ")
+
+    @property
+    def notes_html(self):
+        if not self.notes:
+            return "<em>no notes</em>"
+        return markdown.markdown(
+            self.notes,
+            extensions=[
+                "markdown.extensions.fenced_code",
+                "markdown.extensions.tables",
+                "markdown.extensions.footnotes",
+            ],
+        )
 
     class Meta:
         ordering = ["name"]

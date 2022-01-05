@@ -11,6 +11,11 @@
 <a href="{% url 'admin:main_disease_change' disease.id %}">Edit in admin</a>
 {% endif %}
 
+<h2>Notes</h2>
+<div>
+    {{ disease.notes_html|safe }}
+</div>
+
 <h2>Wikipedia</h2>
 <p>
     <a href="{{ disease.wikipedia_url }}">
