@@ -24,7 +24,7 @@ all business logic. Application CLI commands are generally divided into two
 categories, those under `python manage.py` and those under `make`.
 
 ```
-├── [Makefile](Makefile)
+├── [Makefile](./Makefile)
 ├── [allthevaccines/](allthevaccines)  # django project directory
 │   ├── [asgi.py](asgi.py)
 │   ├── [settings.py](settings.py)  # django settings
