@@ -152,13 +152,13 @@ Deployment is configured with nginx as a reverse proxy and uWSGI in
 [Emperor mode](https://uwsgi.readthedocs.io/en/latest/Emperor.html).
 Configuration files:
 
-* [allthevaccines.org.conf](allthevaccines.org.conf): nginx reverse proxy configuration
-* [emperor.ini](emperor.ini): uWSGI main configuration, enables emperor mode
-* [uwsgi.ini](uwsgi.ini): uWSGI vassal configuration
+* [`allthevaccines.org.conf`](allthevaccines.org.conf): nginx reverse proxy configuration
+* [`emperor.ini`](emperor.ini): uWSGI main configuration, enables emperor mode
+* [`uwsgi.ini`](uwsgi.ini): uWSGI vassal configuration
 
 Also, uWSGI can be configured as a
 [systemd service](https://uwsgi.readthedocs.io/en/latest/Systemd.html).
-See [emperor.uwsgi.service](emperor.uwsgi.service). To follow logs, run:
+See [`emperor.uwsgi.service`](emperor.uwsgi.service). To follow logs, run:
 
 ```sh
 journalctl -u emperor.uwsgi.service -fb
