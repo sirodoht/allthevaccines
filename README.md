@@ -24,41 +24,41 @@ all business logic. Application CLI commands are generally divided into two
 categories, those under `python manage.py` and those under `make`.
 
 ```
-├── [Makefile](./Makefile)
-├── [allthevaccines/](allthevaccines)  # django project directory
-│   ├── [asgi.py](asgi.py)
-│   ├── [settings.py](settings.py)  # django settings
-│   ├── [urls.py](urls.py)  # root urls module
-│   └── [wsgi.py](wsgi.py)
-├── [allthevaccines.org.conf](allthevaccines.org.conf)  # nginx configuration
-├── [default.nix](default.nix)  # nix environment
-├── [deploy.sh](deploy.sh)  # deployment script
-├── [emperor.ini](emperor.ini)  # uwsgi emperor config
-├── [emperor.uwsgi.service](emperor.uwsgi.service)  # uwsgi systemd config
-├── [main/](main)  # django main app directory
-│   ├── [admin.py](admin.py)
-│   ├── [apps.py](apps.py)
-│   ├── [migrations/](migrations)
-│   ├── [models.py](models.py)  # all database models
-│   ├── [static/](static/)
-│   │   └── [style.css](style.css)  # CSS stylesheet — there is only this one
-│   ├── [templates/](templates)  # django templates
-│   │   └── [main/](main)
-│   │       ├── [about.html](about.html)  # static about page
-│   │       ├── [disease_detail.html](disease_detail.html)
-│   │       ├── [disease_list.html](disease_list.html)
-│   │       ├── [index.html](index.html)  # aka vaccine list template
-│   │       ├── [layout.html](layout.html)  # all templates inherit this one
-│   │       └── [vaccine_detail.html](vaccine_detail.html)
-│   ├── [tests.py](tests.py)
-│   ├── [urls.py](urls.py)
-│   └── [views.py](views.py)
-├── [manage.py](manage.py)
-├── [requirements.in](requirements.in)  # manually edited requirements file
-├── [requirements.txt](requirements.txt)  # pip-compile generated file
-├── [requirements_dev.txt](requirements_dev.txt)  # manually edited dev requiremenets
-├── [static/](static)  # generated static directory
-└── [uwsgi.ini](uwsgi.ini)  # uwsgi vassal configuration
+├── Makefile
+├── allthevaccines/  # django project directory
+│   ├── asgi.py
+│   ├── settings.py  # django settings
+│   ├── urls.py  # root urls module
+│   └── wsgi.py
+├── allthevaccines.org.conf  # nginx configuration
+├── default.nix  # nix environment
+├── deploy.sh  # deployment script
+├── emperor.ini  # uwsgi emperor config
+├── emperor.uwsgi.service  # uwsgi systemd config
+├── main/  # django main app directory
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations/
+│   ├── models.py  # all database models
+│   ├── static/
+│   │   └── style.css  # CSS stylesheet — there is only this one
+│   ├── templates/  # django templates
+│   │   └── main/
+│   │       ├── about.html  # static about page
+│   │       ├── disease_detail.html
+│   │       ├── disease_list.html
+│   │       ├── index.html  # aka vaccine list template
+│   │       ├── layout.html  # all templates inherit this one
+│   │       └── vaccine_detail.html
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── manage.py
+├── requirements.in  # manually edited requirements file
+├── requirements.txt  # pip-compile generated file
+├── requirements_dev.txt  # manually edited dev requiremenets
+├── static/  # generated static directory
+└── uwsgi.ini  # uwsgi vassal configuration
 ```
 
 ### Environment
