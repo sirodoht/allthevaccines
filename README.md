@@ -35,20 +35,20 @@ categories, those under `python manage.py` and those under `make`.
 ├── deploy.sh  # deployment script
 ├── emperor.ini  # uwsgi emperor config
 ├── emperor.uwsgi.service  # uwsgi systemd config
-├── main/  # django app directory
+├── main/  # django main app directory
 │   ├── admin.py
 │   ├── apps.py
 │   ├── migrations/
-│   ├── models.py
+│   ├── models.py  # all database models
 │   ├── static/
-│   │   └── style.css  # single CSS stylesheet
+│   │   └── style.css  # CSS stylesheet — there is only this one
 │   ├── templates/  # django templates
 │   │   └── main/
 │   │       ├── about.html  # static about page
 │   │       ├── disease_detail.html
 │   │       ├── disease_list.html
-│   │       ├── index.html
-│   │       ├── layout.html  # all templates inherit from this one
+│   │       ├── index.html  # aka vaccine list template
+│   │       ├── layout.html  # all templates inherit this one
 │   │       └── vaccine_detail.html
 │   ├── tests.py
 │   ├── urls.py
@@ -93,7 +93,7 @@ python manage.py migrate
 ### Data
 
 Production vaccine and disease data are serialised and committed to the
-repository, file name is [`vaccine-disease-data.json`](vaccine-disease-data.json)).
+repository, file name is [`vaccine-disease-data.json`](vaccine-disease-data.json).
 
 To load all vaccine and disease data, run:
 
@@ -144,6 +144,24 @@ To use:
 ```sh
 make format
 make lint
+```
+
+## Deployment
+
+Deployment is configured with nginx as a reverse proxy and uWSGI in
+[Emperor mode](https://uwsgi.readthedocs.io/en/latest/Emperor.html).
+Configuration files:
+
+* [allthevaccines.org.conf](allthevaccines.org.conf): nginx reverse proxy configuration
+* [emperor.ini](emperor.ini): uWSGI main configuration, enables emperor mode
+* [uwsgi.ini](uwsgi.ini): uWSGI vassal configuration
+
+Also, uWSGI can be configured as a
+[systemd service](https://uwsgi.readthedocs.io/en/latest/Systemd.html).
+See [emperor.uwsgi.service](emperor.uwsgi.service). To follow logs, run:
+
+```sh
+journalctl -u emperor.uwsgi.service -fb
 ```
 
 ## License
