@@ -4,11 +4,11 @@
 #
 #    pip-compile requirements.in
 #
-asgiref==3.4.1
+asgiref==3.5.0
     # via django
-django==4.0
+django==4.0.2
     # via -r requirements.in
-importlib-metadata==4.10.0
+importlib-metadata==4.10.1
     # via markdown
 markdown==3.3.6
     # via -r requirements.in
