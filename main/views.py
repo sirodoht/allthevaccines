@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.mail import mail_admins
 from django.shortcuts import redirect, render
+from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView
 
 from main import forms, models
@@ -37,6 +38,7 @@ def about(request):
     return render(request, "main/about.html")
 
 
+@require_POST
 def subscribe(request):
     if request.method == "POST":
         form = forms.SubscriptionForm(request.POST)
