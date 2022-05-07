@@ -3,9 +3,6 @@
 set -e
 set -x
 
-# load ssh key
-eval $(ssh-agent) && ssh-add ~/.ssh/id_ed25519
-
 # make sure latest requirements are installed
 pip install -r requirements_dev.txt
 
