@@ -1,4 +1,4 @@
-.PHONY: lint format cov
+all: format lint cov
 
 lint:
 	python3 -m flake8 --exclude=.git/,.direnv/,.pyenv/ --ignore=E203,E501,W503
