@@ -53,11 +53,10 @@
         from, out of or in connection with it.
     </p>
     <p>
-        allthevaccines.org is open source software. Source code licensed under the
-        <a href="https://git.sr.ht/~sirodoht/allthevaccines/blob/master/LICENSE">MIT License</a>
+        allthevaccines.org is open source software. Source code is licensed under the
+        <a href="https://github.com/sirodoht/allthevaccines/blob/main/LICENSE">MIT License</a>
         and available on
-        <a href="https://git.sr.ht/~sirodoht/allthevaccines">sr.ht</a>
-        and <a href="https://github.com/sirodoht/allthevaccines">GitHub</a>.
+        <a href="https://github.com/sirodoht/allthevaccines">GitHub</a>.
     </p>
     <p>
         If you notice any issues with the website data please contact
@@ -65,15 +64,5 @@
         or
         <a href="https://github.com/sirodoht/allthevaccines/issues/new">open a GitHub issue</a>.
     </p>
-
-    <section>
-        <h2>Get project updates</h2>
-        <form method="post" action="{% url 'subscribe' %}">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-            {% csrf_token %}
-            <input type="submit" value="save">
-        </form>
-    </section>
 </main>
 {% endblock %}

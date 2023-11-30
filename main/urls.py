@@ -8,5 +8,4 @@ urlpatterns = [
     path("disease/<slug:slug>/", views.DiseaseDetail.as_view(), name="disease_detail"),
     path("disease/", views.DiseaseList.as_view(), name="disease_list"),
     path("about/", views.about, name="about"),
-    path("subscribe/", views.subscribe, name="subscribe"),
 ]
