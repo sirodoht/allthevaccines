@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("main", "0009_rename_other_url_vaccine_info_urls_and_more"),
     ]
