@@ -2,15 +2,6 @@
 
 Human vaccine tracker.
 
-## Contributing
-
-Feel free to open a PR on [GitHub](https://github.com/sirodoht/allthevaccines)
-or send an email patch to
-[~sirodoht/public-inbox@lists.sr.ht](mailto:~sirodoht/public-inbox@lists.sr.ht).
-
-On how to contribute using email patches see
-[git-send-email.io](https://git-send-email.io/).
-
 ## Development
 
 This is a [Django](https://www.djangoproject.com/) codebase. Check out the
@@ -61,25 +52,18 @@ categories, those under `python manage.py` and those under `make`.
 └── uwsgi.ini  # uwsgi vassal configuration
 ```
 
-### Environment
-
-This project uses [Nix](https://nixos.org/guides/install-nix.html) and
-[direnv](https://direnv.net/) to configure its environment.
-
-Alternatively, one can just use a [venv](https://docs.python.org/3/library/venv.html):
+### Set up
 
 ```sh
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements_dev.txt
+cp .envrc.example .envrc
+
+# add SMPT credentials (optional) in .envrc
+vim .envrc
+
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
-
-[direnv](https://direnv.net/) operates with a file named `.envrc` in the root
-directory of the project. This file is git-ignored and an example of how it
-is structured can be found in [`.envrc.example`](.envrc.example).
-
-One needs to either `cp .envrc.example .envrc` if using direnv, or export the
-environment variables in some other way.
 
 ### Database
 
