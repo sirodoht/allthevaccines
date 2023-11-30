@@ -4,14 +4,13 @@ set -e
 set -x
 
 # make sure latest requirements are installed
-pip install -r requirements_dev.txt
+pip install -r requirements.txt
 
 # make sure tests pass
 python manage.py test
 
 # push origins
 git push origin master
-git push github master
 
 # make sure lint passes
 make lint
