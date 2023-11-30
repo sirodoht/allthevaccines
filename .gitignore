@@ -1,16 +1,14 @@
-# python
+# Python
 *.pyc
 .envrc
-.direnv/
-.pyenv/
-venv/
+.venv/
 
-# test
+# Testing
 .coverage
 htmlcov/
 
-# database
+# Database
 db.sqlite3
 
-# static
+# Static
 /static/
