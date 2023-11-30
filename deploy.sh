@@ -10,7 +10,7 @@ pip install -r requirements.txt
 python manage.py test
 
 # push origins
-git push origin master
+git push origin main
 
 # make sure lint passes
 make lint
