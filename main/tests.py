@@ -1,9 +1,5 @@
-from django.conf import settings
-from django.core import mail
 from django.test import TestCase
 from django.urls import reverse
-
-from main import models
 
 
 class IndexTestCase(TestCase):

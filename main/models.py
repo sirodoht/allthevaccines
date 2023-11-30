@@ -1,5 +1,3 @@
-import uuid
-
 import markdown
 from django.db import models
 

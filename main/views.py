@@ -1,7 +1,4 @@
-from django.contrib import messages
-from django.core.mail import mail_admins
-from django.shortcuts import redirect, render
-from django.views.decorators.http import require_POST
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
 from main import models
