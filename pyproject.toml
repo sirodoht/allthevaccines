@@ -1,0 +1,18 @@
+[project]
+name = "allthevaccines"
+version = "0.1.0"
+description = "human vaccine tracker"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ansible>=10.7.0",
+    "django>=5.2.9",
+    "gunicorn>=23.0.0",
+    "markdown>=3.10",
+]
+
+[dependency-groups]
+dev = [
+    "djade>=1.7.0",
+    "ruff>=0.14.9",
+]

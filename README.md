@@ -2,6 +2,71 @@
 
 Human vaccine tracker.
 
+```
+[
+  {
+    "trade_name": "Arexvy",
+    "manufacturer": "GlaxoSmithKline (GSK)",
+    "info_url": "https://www.fda.gov/vaccines-blood-biologics/arexvy",
+    "disease": "Respiratory syncytial virus (RSV)"
+  },
+  {
+    "trade_name": "Abrysvo",
+    "manufacturer": "Pfizer",
+    "info_url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-vaccine-pregnant-individuals-prevent-rsv-infants",
+    "disease": "Respiratory syncytial virus (RSV)"
+  },
+  {
+    "trade_name": "mResvia",
+    "manufacturer": "Moderna",
+    "info_url": "https://investors.modernatx.com/news/news-details/2025/Moderna-Receives-U.S--FDA-Approval-for-RSV-Vaccine-mRESVIA-in-Adults-Aged-1859-at-Increased-Risk-for-RSV-Disease/default.aspx",
+    "disease": "Respiratory syncytial virus (RSV)"
+  },
+  {
+    "trade_name": "Penbraya",
+    "manufacturer": "Pfizer",
+    "info_url": "https://www.fda.gov/vaccines-blood-biologics/vaccines/penbraya",
+    "disease": "Invasive meningococcal disease (serogroups A, B, C, W & Y)"
+  },
+  {
+    "trade_name": "Penmenvy",
+    "manufacturer": "GlaxoSmithKline (GSK)",
+    "info_url": "https://www.gsk.com/en-gb/media/press-releases/penmenvy-gsk-s-5-in-1-meningococcal-vaccine-approved-by-us-fda-to-help-protect-against-menabcwy/",
+    "disease": "Invasive meningococcal disease (serogroups A, B, C, W & Y)"
+  },
+  {
+    "trade_name": "Ixchiq",
+    "manufacturer": "Valneva",
+    "info_url": "https://www.fda.gov/vaccines-blood-biologics/ixchiq",
+    "disease": "Chikungunya"
+  },
+  {
+    "trade_name": "Vimkunya",
+    "manufacturer": "Bavarian Nordic",
+    "info_url": "https://www.fda.gov/vaccines-blood-biologics/vimkunya",
+    "disease": "Chikungunya"
+  },
+  {
+    "trade_name": "Cyfendus",
+    "manufacturer": "Emergent BioSolutions",
+    "info_url": "https://investors.emergentbiosolutions.com/news-releases/news-release-details/emergent-biosolutions-receives-us-fda-approval-cyfendustm",
+    "disease": "Anthrax (post-exposure prophylaxis)"
+  },
+  {
+    "trade_name": "Qdenga",
+    "manufacturer": "Takeda",
+    "info_url": "https://www.ema.europa.eu/en/medicines/human/EPAR/qdenga",
+    "disease": "Dengue fever"
+  },
+  {
+    "trade_name": "mNEXSPIKE",
+    "manufacturer": "Moderna",
+    "info_url": "https://www.fda.gov/vaccines-blood-biologics/mnexspike",
+    "disease": "COVID-19"
+  }
+]
+```
+
 ## Development
 
 This is a [Django](https://www.djangoproject.com/) codebase. Check out the
