@@ -1,0 +1,134 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}API Documentation — allthevaccines.org{% endblock %}
+
+{% block content %}
+<article class="api-docs">
+    <h1>API Documentation</h1>
+
+    <p>
+        The allthevaccines API provides the complete vaccine and disease database
+        as JSON and CSV. It is public, read-only, and does not require authentication.
+    </p>
+
+    <h2>Quick start</h2>
+    <pre><code>curl https://allthevaccines.org{% url 'api_vaccines' %}</code></pre>
+
+    <h2>Endpoints</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Endpoint</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>GET</code></td>
+                <td><a href="{% url 'api_root' %}"><code>{% url 'api_root' %}</code></a></td>
+                <td>Machine-readable API discovery</td>
+            </tr>
+            <tr>
+                <td><code>GET</code></td>
+                <td><a href="{% url 'api_vaccines' %}"><code>{% url 'api_vaccines' %}</code></a></td>
+                <td>All {{ vaccine_count }} vaccines as JSON</td>
+            </tr>
+            <tr>
+                <td><code>GET</code></td>
+                <td><a href="{% url 'api_vaccines_csv' %}"><code>{% url 'api_vaccines_csv' %}</code></a></td>
+                <td>All vaccines as a CSV attachment</td>
+            </tr>
+            <tr>
+                <td><code>GET</code></td>
+                <td><a href="{% url 'api_diseases' %}"><code>{% url 'api_diseases' %}</code></a></td>
+                <td>All {{ disease_count }} diseases as JSON</td>
+            </tr>
+            <tr>
+                <td><code>GET</code></td>
+                <td><a href="{% url 'api_diseases_csv' %}"><code>{% url 'api_diseases_csv' %}</code></a></td>
+                <td>All diseases as a CSV attachment</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>JSON response</h2>
+    <p>Collection responses use a stable envelope:</p>
+    <pre><code>{
+  "schema_version": 1,
+  "count": {{ vaccine_count }},
+  "results": [
+    { ... }
+  ]
+}</code></pre>
+    <p>
+        <code>schema_version</code> will change when an incompatible field or
+        response-structure change is introduced.
+    </p>
+
+    <h2>Vaccine fields</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>integer</td><td>Database identifier</td></tr>
+            <tr><td><code>trade_name</code></td><td>string</td><td>Branded product name</td></tr>
+            <tr><td><code>slug</code></td><td>string</td><td>Stable URL identifier</td></tr>
+            <tr><td><code>manufacturer</code></td><td>string</td><td>Manufacturer or developer</td></tr>
+            <tr><td><code>vaccine_class</code></td><td>string or null</td><td>Broad vaccine class</td></tr>
+            <tr><td><code>vaccine_type</code></td><td>string or null</td><td>Vaccine technology or type</td></tr>
+            <tr><td><code>first_authorized_year</code></td><td>integer or null</td><td>Earliest supported authorization year</td></tr>
+            <tr><td><code>first_authorized_region</code></td><td>string or null</td><td>Country or region of that authorization</td></tr>
+            <tr><td><code>first_authorization_source_url</code></td><td>string or null</td><td>Evidence URL for the authorization</td></tr>
+            <tr><td><code>info_urls</code></td><td>array</td><td>Additional information links</td></tr>
+            <tr><td><code>diseases</code></td><td>array</td><td>Related disease IDs, names, and slugs</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Disease fields</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>integer</td><td>Database identifier</td></tr>
+            <tr><td><code>name</code></td><td>string</td><td>Disease name</td></tr>
+            <tr><td><code>slug</code></td><td>string</td><td>Stable URL identifier</td></tr>
+            <tr><td><code>wikipedia_url</code></td><td>string</td><td>Wikipedia reference</td></tr>
+            <tr><td><code>notes</code></td><td>string or null</td><td>Markdown-formatted notes</td></tr>
+            <tr><td><code>vaccine_count</code></td><td>integer</td><td>Number of related vaccines</td></tr>
+            <tr><td><code>vaccines</code></td><td>array</td><td>Related vaccine IDs, trade names, and slugs</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Downloads</h2>
+    <p>
+        Add <code>?download=1</code> to a JSON endpoint to receive a named JSON
+        attachment. CSV endpoints always return named attachments. Multi-value CSV
+        fields use <code> | </code> as their delimiter.
+    </p>
+    <ul>
+        <li><a href="{% url 'api_vaccines' %}?download=1" download>Download vaccines as JSON</a></li>
+        <li><a href="{% url 'api_vaccines_csv' %}" download>Download vaccines as CSV</a></li>
+        <li><a href="{% url 'api_diseases' %}?download=1" download>Download diseases as JSON</a></li>
+        <li><a href="{% url 'api_diseases_csv' %}" download>Download diseases as CSV</a></li>
+    </ul>
+
+    <h2>Browser access and caching</h2>
+    <p>
+        Every API response includes <code>Access-Control-Allow-Origin: *</code>, so
+        it can be requested by browser applications on other domains. Responses
+        include <code>Cache-Control: public, max-age=300</code> and may be cached
+        for five minutes.
+    </p>
+</article>
+{% endblock content %}

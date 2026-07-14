@@ -42,6 +42,7 @@
             — <a href="{% url 'index' %}">vaccine list</a>
             | <a href="{% url 'disease_list' %}">disease list</a>
             | <a href="{% url 'about' %}">about</a>
+            | <a href="{% url 'api_docs' %}">api docs</a>
             {% if request.user.is_authenticated and request.user.is_superuser %}
             | <a href="{% url 'admin:index' %}">admin</a>
             {% endif %}

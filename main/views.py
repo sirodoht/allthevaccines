@@ -110,3 +110,14 @@ class VaccineDetail(SortableTableMixin, DetailView):
 
 def about(request):
     return render(request, "main/about.html")
+
+
+def api_docs(request):
+    return render(
+        request,
+        "main/api_docs.html",
+        {
+            "vaccine_count": models.Vaccine.objects.count(),
+            "disease_count": models.Disease.objects.count(),
+        },
+    )

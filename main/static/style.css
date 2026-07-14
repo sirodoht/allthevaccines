@@ -273,6 +273,30 @@ td:not(:last-child) {
     font-size: 0.85em;
 }
 
+.data-actions {
+    margin: 8px 0 16px;
+}
+
+.api-docs {
+    max-width: 900px;
+}
+
+.api-docs pre {
+    background: var(--grey-color);
+    overflow-x: auto;
+    padding: 12px;
+}
+
+.api-docs table {
+    margin-bottom: 24px;
+}
+
+.api-docs th,
+.api-docs td {
+    padding: 4px 8px;
+    vertical-align: top;
+}
+
 input[type="submit"] {
     background: var(--yellow-color);
     border: 2px solid var(--yellow-color);

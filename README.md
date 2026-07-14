@@ -42,6 +42,23 @@ documented regulatory authorization found anywhere in the world.
 - Leave all three fields empty when the year cannot yet be supported by a
   reliable source.
 
+### Public API and downloads
+
+The read-only API exposes the complete database as JSON and CSV:
+
+- `GET /api/docs/` — human-readable API documentation
+- `GET /api/` — API index and endpoint discovery
+- `GET /api/vaccines/` — vaccine JSON collection
+- `GET /api/vaccines.csv` — vaccine CSV download
+- `GET /api/diseases/` — disease JSON collection
+- `GET /api/diseases.csv` — disease CSV download
+
+Append `?download=1` to either JSON collection to receive it as a named file
+attachment. JSON responses contain `schema_version`, `count`, and `results`.
+Related vaccines and diseases are nested as compact objects. Multi-value CSV
+fields use ` | ` as their delimiter. All API responses allow cross-origin GET
+requests and are cached publicly for five minutes.
+
 ## Development
 
 This is a standard [Django](https://docs.djangoproject.com/) application with
