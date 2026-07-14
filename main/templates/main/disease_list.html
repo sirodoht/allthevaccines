@@ -1,6 +1,6 @@
 {% extends 'main/layout.html' %}
 
-{% load static %}
+{% load static sorting %}
 
 {% block title %}Disease: List — allthevaccines.org{% endblock %}
 
@@ -15,12 +15,14 @@
 
 <table>
     <thead>
-        <th scope="col">Name</th>
-        <th scope="col">Vaccine Count</th>
-        <th scope="col">Wikipedia</th>
-        {% if request.user.is_authenticated and request.user.is_superuser %}
-        <th scope="col">Admin</th>
-        {% endif %}
+        <tr>
+            {% sortable_header "Name" "name" %}
+            {% sortable_header "Vaccine Count" "vaccine_count" %}
+            {% sortable_header "Wikipedia" "wikipedia" %}
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            {% sortable_header "Admin" "admin" %}
+            {% endif %}
+        </tr>
     </thead>
     <tbody>
         {% for disease in disease_list %}
@@ -30,7 +32,7 @@
                     {{ disease.name }}
                 </a>
             </td>
-            <td>{{ disease.vaccines.count }}</td>
+            <td>{{ disease.vaccine_count }}</td>
             <td>
                 <a href="{{ disease.wikipedia_url }}">
                     {{ disease.wikipedia_url_fancy }}

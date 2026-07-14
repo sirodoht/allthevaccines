@@ -233,6 +233,8 @@ table {
 
 th {
     background: var(--yellow-color);
+    padding: 0;
+    text-align: left;
 }
 
 th:not(:last-child) {
@@ -250,6 +252,25 @@ td {
 
 td:not(:last-child) {
     border-right: 2px solid #fff;
+}
+
+.sort-link {
+    align-items: center;
+    color: inherit;
+    display: flex;
+    gap: 6px;
+    justify-content: space-between;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.sort-link-active {
+    font-weight: 700;
+}
+
+.sort-indicator {
+    color: var(--muted-color);
+    font-size: 0.85em;
 }
 
 input[type="submit"] {

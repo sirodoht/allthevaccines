@@ -1,6 +1,6 @@
 {% extends 'main/layout.html' %}
 
-{% load static %}
+{% load static sorting %}
 
 {% block title %}Disease: {{ disease.name }} — allthevaccines.org{% endblock %}
 
@@ -30,11 +30,13 @@
 
 <table>
     <thead>
-        <th scope="col">Trade Name</th>
-        <th scope="col">Manufacturer</th>
-        {% if request.user.is_authenticated and request.user.is_superuser %}
-        <th scope="col">Admin</th>
-        {% endif %}
+        <tr>
+            {% sortable_header "Trade Name" "trade_name" %}
+            {% sortable_header "Manufacturer" "manufacturer" %}
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            {% sortable_header "Admin" "admin" %}
+            {% endif %}
+        </tr>
     </thead>
     <tbody>
         {% for vaccine in vaccine_list %}

@@ -1,6 +1,6 @@
 {% extends 'main/layout.html' %}
 
-{% load static %}
+{% load static sorting %}
 
 {% block title %}Vaccine: List — allthevaccines.org{% endblock %}
 
@@ -15,13 +15,15 @@
 
 <table>
     <thead>
-        <th scope="col">Trade Name</th>
-        <th scope="col">Manufacturer</th>
-        <th scope="col">First Authorized</th>
-        <th scope="col">Disease</th>
-        {% if request.user.is_authenticated and request.user.is_superuser %}
-        <th scope="col">Admin</th>
-        {% endif %}
+        <tr>
+            {% sortable_header "Trade Name" "trade_name" %}
+            {% sortable_header "Manufacturer" "manufacturer" %}
+            {% sortable_header "First Authorized" "first_authorized" %}
+            {% sortable_header "Disease" "disease_count" %}
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            {% sortable_header "Admin" "admin" %}
+            {% endif %}
+        </tr>
     </thead>
     <tbody>
         {% for vaccine in vaccine_list %}
@@ -38,7 +40,7 @@
                 {% endif %}
             </td>
             <td>
-                ({{ vaccine.disease_set.count }})
+                ({{ vaccine.disease_count }})
                 {% for disease in vaccine.disease_set.all %}
                 <a href="{% url 'disease_detail' disease.slug %}">
                     {{ disease.name }}{% if not forloop.last %},{% endif %}

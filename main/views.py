@@ -1,33 +1,110 @@
 from django.shortcuts import render
+from django.db.models import Count, F
 from django.views.generic import DetailView, ListView
 
 from main import models
 
 
-class Index(ListView):
-    model = models.Vaccine
-    template_name = "main/index.html"
+class SortableTableMixin:
+    sort_fields = {}
+    default_sort = ""
 
+    def get_sorting(self):
+        sort_key = self.request.GET.get("sort", self.default_sort)
+        if sort_key not in self.sort_fields:
+            sort_key = self.default_sort
 
-class DiseaseDetail(DetailView):
-    model = models.Disease
+        direction = self.request.GET.get("direction", "asc")
+        if direction not in {"asc", "desc"}:
+            direction = "asc"
+
+        return sort_key, direction
+
+    def sort_queryset(self, queryset):
+        sort_key, direction = self.get_sorting()
+        field_name = self.sort_fields[sort_key]
+        expression = F(field_name)
+        if direction == "desc":
+            expression = expression.desc(nulls_last=True)
+        else:
+            expression = expression.asc(nulls_last=True)
+
+        ordering = [expression]
+        if field_name != "pk":
+            ordering.append("pk")
+        return queryset.order_by(*ordering)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["vaccine_list"] = models.Vaccine.objects.filter(disease=self.object)
+        context["sort_key"], context["sort_direction"] = self.get_sorting()
         return context
 
 
-class DiseaseList(ListView):
-    model = models.Disease
-
-
-class VaccineDetail(DetailView):
+class Index(SortableTableMixin, ListView):
     model = models.Vaccine
+    template_name = "main/index.html"
+    sort_fields = {
+        "trade_name": "trade_name",
+        "manufacturer": "manufacturer",
+        "first_authorized": "first_authorized_year",
+        "disease_count": "disease_count",
+        "admin": "pk",
+    }
+    default_sort = "trade_name"
+
+    def get_queryset(self):
+        queryset = super().get_queryset().annotate(
+            disease_count=Count("disease", distinct=True)
+        )
+        return self.sort_queryset(queryset.prefetch_related("disease_set"))
+
+
+class DiseaseDetail(SortableTableMixin, DetailView):
+    model = models.Disease
+    sort_fields = {
+        "trade_name": "trade_name",
+        "manufacturer": "manufacturer",
+        "admin": "pk",
+    }
+    default_sort = "trade_name"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["disease_list"] = models.Disease.objects.filter(vaccines=self.object)
+        queryset = models.Vaccine.objects.filter(disease=self.object)
+        context["vaccine_list"] = self.sort_queryset(queryset)
+        return context
+
+
+class DiseaseList(SortableTableMixin, ListView):
+    model = models.Disease
+    sort_fields = {
+        "name": "name",
+        "vaccine_count": "vaccine_count",
+        "wikipedia": "wikipedia_url",
+        "admin": "pk",
+    }
+    default_sort = "name"
+
+    def get_queryset(self):
+        queryset = super().get_queryset().annotate(
+            vaccine_count=Count("vaccines", distinct=True)
+        )
+        return self.sort_queryset(queryset)
+
+
+class VaccineDetail(SortableTableMixin, DetailView):
+    model = models.Vaccine
+    sort_fields = {
+        "name": "name",
+        "wikipedia": "wikipedia_url",
+        "admin": "pk",
+    }
+    default_sort = "name"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = models.Disease.objects.filter(vaccines=self.object)
+        context["disease_list"] = self.sort_queryset(queryset)
         return context
 
 

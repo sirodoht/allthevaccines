@@ -1,0 +1,12 @@
+<th scope="col"{% if is_active %} aria-sort="{{ current_direction }}ending"{% endif %}>
+    <a
+        class="sort-link{% if is_active %} sort-link-active{% endif %}"
+        href="?{{ query_string }}"
+        aria-label="{% if is_active %}{{ label }}, sorted {{ current_direction }}ending; sort {{ next_direction }}ending{% else %}Sort {{ label }} ascending{% endif %}"
+    >
+        {{ label }}
+        <span class="sort-indicator" aria-hidden="true">
+            {% if is_active and current_direction == "asc" %}↑{% elif is_active %}↓{% else %}↕{% endif %}
+        </span>
+    </a>
+</th>
