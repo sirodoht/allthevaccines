@@ -10,6 +10,8 @@ class VaccineAdmin(admin.ModelAdmin):
         "slug",
         "trade_name",
         "manufacturer",
+        "first_authorized_year",
+        "first_authorized_region",
     )
     list_display_links = ("id", "slug")
     list_per_page = 200

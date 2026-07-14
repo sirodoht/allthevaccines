@@ -16,6 +16,18 @@
     {{ vaccine.manufacturer }}
 </p>
 
+<h2>First authorization</h2>
+{% if vaccine.first_authorized_year %}
+<p>
+    {{ vaccine.first_authorized_year }}{% if vaccine.first_authorized_region %} ({{ vaccine.first_authorized_region }}){% endif %}
+    {% if vaccine.first_authorization_source_url %}
+    — <a href="{{ vaccine.first_authorization_source_url }}">source</a>
+    {% endif %}
+</p>
+{% else %}
+<p><em>Unknown</em></p>
+{% endif %}
+
 <h2>Information links</h2>
 <p>
     {{ vaccine.info_urls_html|safe }}

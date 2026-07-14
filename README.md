@@ -21,6 +21,27 @@ To dump/serialise all vaccine and disease data, run:
 python manage.py dumpdata main.Vaccine main.Disease > vaccine-disease-data.json
 ```
 
+### First authorization data
+
+For each branded vaccine product, `first_authorized_year` records the earliest
+documented regulatory authorization found anywhere in the world.
+`first_authorized_region` identifies the authorizing country or region, and
+`first_authorization_source_url` links directly to the evidence for that year.
+
+- Record the authorization of the exact branded product, not its underlying
+  vaccine technology or an earlier related formulation.
+- Treat renamed aliases as one product and use the earliest authorization for
+  that product.
+- Do not substitute a WHO prequalification date for an authorization date.
+- Count emergency, conditional, temporary, special-access, and restricted-use
+  authorizations when they legally allowed the named product to be used.
+- Do not count a WHO EUL/prequalification decision or an EMA scientific opinion
+  as a national or regional authorization by itself.
+- Prefer regulator records and approval letters, followed by official product
+  documents, manufacturer announcements, and peer-reviewed historical sources.
+- Leave all three fields empty when the year cannot yet be supported by a
+  reliable source.
+
 ## Development
 
 This is a standard [Django](https://docs.djangoproject.com/) application with

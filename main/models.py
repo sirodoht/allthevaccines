@@ -9,6 +9,17 @@ class Vaccine(models.Model):
     info_urls = models.TextField(null=True, blank=True)
     vaccine_class = models.CharField(max_length=100, null=True, blank=True)
     vaccine_type = models.CharField(max_length=100, null=True, blank=True)
+    first_authorized_year = models.PositiveSmallIntegerField(null=True, blank=True)
+    first_authorized_region = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+    )
+    first_authorization_source_url = models.URLField(
+        max_length=500,
+        null=True,
+        blank=True,
+    )
 
     @property
     def wikipedia_url_fancy(self):
