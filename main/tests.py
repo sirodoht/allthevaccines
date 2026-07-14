@@ -25,6 +25,7 @@ class VaccineAuthorizationTestCase(TestCase):
             trade_name="Example vaccine",
             slug="example-vaccine",
             manufacturer="Example manufacturer",
+            vaccine_type="mRNA",
             first_authorized_year=2025,
             first_authorized_region="EU",
             first_authorization_source_url="https://example.com/authorization",
@@ -35,6 +36,8 @@ class VaccineAuthorizationTestCase(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Vaccine type")
+        self.assertContains(response, "mRNA")
         self.assertContains(response, "2025 (EU)")
         self.assertContains(response, "https://example.com/authorization")
 
@@ -45,12 +48,14 @@ class TableSortingTestCase(TestCase):
             trade_name="Alpha vaccine",
             slug="alpha-vaccine",
             manufacturer="Zeta Labs",
+            vaccine_type="mRNA",
             first_authorized_year=2020,
         )
         self.beta_vaccine = Vaccine.objects.create(
             trade_name="Beta vaccine",
             slug="beta-vaccine",
             manufacturer="Alpha Labs",
+            vaccine_type="Inactivated",
         )
         self.cholera = Disease.objects.create(
             name="Cholera",
@@ -161,6 +166,20 @@ class TableSortingTestCase(TestCase):
             ["Beta vaccine", "Alpha vaccine"],
         )
 
+    def test_disease_detail_displays_and_sorts_vaccine_types(self):
+        response = self.client.get(
+            reverse("disease_detail", kwargs={"slug": self.cholera.slug}),
+            {"sort": "vaccine_type", "direction": "asc"},
+        )
+
+        self.assertEqual(
+            list(response.context["vaccine_list"].values_list("trade_name", flat=True)),
+            ["Beta vaccine", "Alpha vaccine"],
+        )
+        self.assertContains(response, "Inactivated")
+        self.assertContains(response, "mRNA")
+        self.assertContains(response, "?sort=vaccine_type&amp;direction=desc")
+
     def test_vaccine_detail_sorts_its_disease_table(self):
         response = self.client.get(
             reverse("vaccine_detail", kwargs={"slug": self.alpha_vaccine.slug}),
@@ -183,3 +202,95 @@ class TableSortingTestCase(TestCase):
         response = self.client.get(reverse("index"))
 
         self.assertContains(response, "?sort=admin&amp;direction=asc")
+
+
+class DiseaseSummaryTestCase(TestCase):
+    def setUp(self):
+        self.disease = Disease.objects.create(
+            name="Example disease",
+            slug="example-disease",
+            wikipedia_url="https://en.wikipedia.org/wiki/Example",
+        )
+        vaccines = [
+            Vaccine.objects.create(
+                trade_name="Early One",
+                slug="early-one",
+                manufacturer="Example Labs",
+                vaccine_type="mRNA",
+                first_authorized_year=1999,
+                first_authorized_region="United Kingdom",
+                first_authorization_source_url="https://example.com/early-one",
+            ),
+            Vaccine.objects.create(
+                trade_name="Early Two",
+                slug="early-two",
+                manufacturer="Example Labs",
+                vaccine_type="mRNA",
+                first_authorized_year=1999,
+                first_authorized_region="United States",
+                first_authorization_source_url="https://example.com/early-two",
+            ),
+            Vaccine.objects.create(
+                trade_name="Later Vaccine",
+                slug="later-vaccine",
+                manufacturer="Example Labs",
+                vaccine_type="Viral vector",
+                first_authorized_year=2005,
+                first_authorized_region="European Union",
+                first_authorization_source_url="https://example.com/later-vaccine",
+            ),
+            Vaccine.objects.create(
+                trade_name="Undated Vaccine",
+                slug="undated-vaccine",
+                manufacturer="Example Labs",
+            ),
+        ]
+        self.disease.vaccines.add(*vaccines)
+
+    def test_disease_page_calculates_authorization_history(self):
+        response = self.client.get(
+            reverse("disease_detail", kwargs={"slug": self.disease.slug})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["vaccine_count"], 4)
+        self.assertEqual(response.context["undated_vaccine_count"], 1)
+        self.assertEqual(
+            [group["year"] for group in response.context["authorization_history"]],
+            [1999, 2005],
+        )
+        self.assertNotContains(response, "At a glance")
+        self.assertNotContains(response, "Technology breakdown")
+        self.assertNotContains(response, "<progress")
+        self.assertContains(response, "Authorization history")
+        self.assertContains(response, "https://example.com/early-one")
+        self.assertContains(response, "Later Vaccine")
+        self.assertContains(response, "Authorization year unknown")
+        self.assertNotContains(response, "1 product")
+        self.assertNotContains(response, "2 products")
+        self.assertNotContains(response, "<details")
+        content = response.content.decode()
+        self.assertLess(
+            content.index("Vaccines (4)"),
+            content.index("Authorization history"),
+        )
+
+    def test_empty_disease_page_has_clear_authorization_empty_state(self):
+        empty_disease = Disease.objects.create(
+            name="Empty disease",
+            slug="empty-disease",
+            wikipedia_url="https://en.wikipedia.org/wiki/Empty_set",
+        )
+
+        response = self.client.get(
+            reverse("disease_detail", kwargs={"slug": empty_disease.slug})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["vaccine_count"], 0)
+        self.assertEqual(response.context["authorization_history"], [])
+        self.assertNotContains(response, "Technology breakdown")
+        self.assertContains(
+            response,
+            "No documented authorization years are available yet.",
+        )

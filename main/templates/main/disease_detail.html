@@ -23,16 +23,14 @@
     </a>
 </p>
 
-<h2>Vaccine Count</h2>
-<p>
-    {{ vaccine_list.count }}
-</p>
+<h2>Vaccines ({{ vaccine_count }})</h2>
 
 <table>
     <thead>
         <tr>
             {% sortable_header "Trade Name" "trade_name" %}
             {% sortable_header "Manufacturer" "manufacturer" %}
+            {% sortable_header "Type" "vaccine_type" %}
             {% if request.user.is_authenticated and request.user.is_superuser %}
             {% sortable_header "Admin" "admin" %}
             {% endif %}
@@ -45,6 +43,13 @@
                 <a href="{% url 'vaccine_detail' vaccine.slug %}">{{ vaccine.trade_name }}</a>
             </td>
             <td>{{ vaccine.manufacturer }}</td>
+            <td>
+                {% if vaccine.vaccine_type %}
+                {{ vaccine.vaccine_type }}
+                {% else %}
+                <em>Unknown</em>
+                {% endif %}
+            </td>
             {% if request.user.is_authenticated and request.user.is_superuser %}
             <td><a href="{% url 'admin:main_vaccine_change' vaccine.id %}">Edit</a></td>
             {% endif %}
@@ -52,4 +57,41 @@
         {% endfor %}
     </tbody>
 </table>
+
+<section aria-labelledby="authorization-history-heading">
+    <h2 id="authorization-history-heading">Authorization history</h2>
+    {% if authorization_history %}
+    <div class="authorization-history">
+        {% for year_group in authorization_history %}
+        <div class="authorization-year-group">
+            <span class="history-year">{{ year_group.year }}</span>
+            <ul>
+                {% for vaccine in year_group.vaccines %}
+                <li>
+                    <a href="{% url 'vaccine_detail' vaccine.slug %}">{{ vaccine.trade_name }}</a>
+                    — {{ vaccine.first_authorized_region|default:"Region unknown" }}
+                    {% if vaccine.first_authorization_source_url %}
+                    — <a href="{{ vaccine.first_authorization_source_url }}">source</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p><em>No documented authorization years are available yet.</em></p>
+    {% endif %}
+
+    {% if undated_vaccine_count %}
+    <div class="undated-vaccines">
+        <h3>Authorization year unknown</h3>
+        <ul>
+            {% for vaccine in undated_vaccines %}
+            <li><a href="{% url 'vaccine_detail' vaccine.slug %}">{{ vaccine.trade_name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</section>
 {% endblock content %}

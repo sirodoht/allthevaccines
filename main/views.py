@@ -1,3 +1,5 @@
+from itertools import groupby
+
 from django.shortcuts import render
 from django.db.models import Count, F
 from django.views.generic import DetailView, ListView
@@ -64,6 +66,7 @@ class DiseaseDetail(SortableTableMixin, DetailView):
     sort_fields = {
         "trade_name": "trade_name",
         "manufacturer": "manufacturer",
+        "vaccine_type": "vaccine_type",
         "admin": "pk",
     }
     default_sort = "trade_name"
@@ -71,7 +74,31 @@ class DiseaseDetail(SortableTableMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = models.Vaccine.objects.filter(disease=self.object)
+
+        vaccine_count = queryset.count()
+        authorized_vaccines = list(
+            queryset.filter(first_authorized_year__isnull=False).order_by(
+                "first_authorized_year", "trade_name"
+            )
+        )
+        authorization_history = [
+            {
+                "year": year,
+                "vaccines": list(vaccines),
+            }
+            for year, vaccines in groupby(
+                authorized_vaccines,
+                key=lambda vaccine: vaccine.first_authorized_year,
+            )
+        ]
+
         context["vaccine_list"] = self.sort_queryset(queryset)
+        context["vaccine_count"] = vaccine_count
+        context["undated_vaccines"] = queryset.filter(
+            first_authorized_year__isnull=True
+        ).order_by("trade_name")
+        context["undated_vaccine_count"] = vaccine_count - len(authorized_vaccines)
+        context["authorization_history"] = authorization_history
         return context
 
 

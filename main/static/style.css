@@ -273,6 +273,36 @@ td:not(:last-child) {
     font-size: 0.85em;
 }
 
+.authorization-history {
+    max-width: 720px;
+}
+
+.authorization-year-group,
+.undated-vaccines {
+    border-bottom: 1px solid var(--grey-color);
+    padding: 6px 0;
+}
+
+.authorization-history ul,
+.undated-vaccines ul {
+    margin-bottom: 6px;
+    margin-top: 8px;
+}
+
+.history-year {
+    font-weight: 700;
+}
+
+.undated-vaccines {
+    margin-top: 8px;
+    max-width: 720px;
+}
+
+.undated-vaccines h3 {
+    font-size: 1em;
+    margin: 0;
+}
+
 .data-actions {
     margin: 8px 0 16px;
 }

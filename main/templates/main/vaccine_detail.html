@@ -16,6 +16,13 @@
     {{ vaccine.manufacturer }}
 </p>
 
+<h2>Vaccine type</h2>
+{% if vaccine.vaccine_type %}
+<p>{{ vaccine.vaccine_type }}</p>
+{% else %}
+<p><em>Unknown</em></p>
+{% endif %}
+
 <h2>First authorization</h2>
 {% if vaccine.first_authorized_year %}
 <p>
